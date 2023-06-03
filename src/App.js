@@ -1,24 +1,33 @@
-import logo from './logo.svg';
+import Form1 from './components/Form1';
+import Form2 from './components/Form2';
 import './App.css';
+import { useState } from 'react';
 
 function App() {
+
+  const [data, setData] = useState({
+    name:"",
+    age:""
+  });
+
+  const [currentPage, setCurrentPage] = useState(1);
+  const handleSubmit = (event)=>{
+    console.log("Form submitted")
+    console.log(data)
+    event.preventDefault();
+  }
+  
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <>
+      <form>
+        {currentPage===1 && <Form1 data={data} setData={setData}/>}
+        <br />
+        {currentPage===2 && <Form2 data={data} setData={setData}/>}
+        {currentPage<2 && <button onClick={()=>setCurrentPage(currentPage+1)}>Next</button>}
+        {currentPage===2 && <button type='submit' onClick={(event)=>handleSubmit(event)}>Submit</button>}
+
+      </form>
+    </>
   );
 }
 
